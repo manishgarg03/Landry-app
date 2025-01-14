@@ -410,6 +410,24 @@ class S {
     );
   }
 
+  String get notification {
+    return Intl.message(
+      'Nofification',
+      name: 'Nofification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get deleteAccout {
+    return Intl.message(
+      'Delete Account',
+      name: 'Delete Account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Log Out`
   String get lgout {
     return Intl.message(

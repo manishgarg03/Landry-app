@@ -8,6 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final profileRepoProvider = Provider<IProfileRepo>(
   (ref) => ref.watch(isAppLive) ? ProfileRepo() : OfflineProfileRepo(),
 );
+
+final notificationStateProvider =
+    StateProvider<bool>((ref) => true); // Default is true (notifications on)
+
 final profileUpdateProvider =
     StateNotifierProvider<UpdateProfileNotifier, ApiState<String>>((ref) {
   return UpdateProfileNotifier(ref.watch(profileRepoProvider));

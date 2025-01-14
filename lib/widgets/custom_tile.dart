@@ -11,11 +11,13 @@ class CustomTile extends StatelessWidget {
     required this.title,
     this.ontap,
     this.hasBorder = true,
+    this.toggle,
   });
   final IconData icon;
   final String title;
   final Function()? ontap;
   final bool hasBorder;
+  final Widget? toggle;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,8 @@ class CustomTile extends StatelessWidget {
                 style: AppTextDecor.osRegular14black,
               ),
             ),
+
+            toggle ?? const SizedBox()
             // Icon(
             //   Hive.box(AppHSC.appSettingsBox).get(AppHSC.appLocal).toString() ==
             //           "ar"

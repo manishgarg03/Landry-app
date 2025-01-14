@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:887141294942:android:902aae09311906ad44a5cf",
         "android_client_info": {
-          "package_name": "com.razinsoft.laundry"
+          "package_name": "com.vpstechno.banasreelaundry"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "887141294942-il9m0vu1rtp4rnnq2tfld6gtjuc9iuk5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.razinsoft.laundry",
+            "package_name": "com.vpstechno.banasreelaundry",
             "certificate_hash": "86a7e77e268ec3d485ff366bbc6a341a466d8012"
           }
         },
@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:887141294942:android:689f9fd5aae74ecb44a5cf",
         "android_client_info": {
-          "package_name": "com.razinsoft.laundry_driver"
+          "package_name": "com.vpstechno.banasreelaundry_driver"
         }
       },
       "oauth_client": [
@@ -54,7 +54,7 @@
           "client_id": "887141294942-gfi58ku2i9jfvddrbfp3i9nqsdi68uj9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.razinsoft.laundry_driver",
+            "package_name": "com.vpstechno.banasreelaundry_driver",
             "certificate_hash": "86a7e77e268ec3d485ff366bbc6a341a466d8012"
           }
         },

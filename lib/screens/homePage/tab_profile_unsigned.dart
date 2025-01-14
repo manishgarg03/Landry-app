@@ -20,12 +20,14 @@ import 'package:laundry_customer/widgets/buttons/full_width_button.dart';
 import 'package:laundry_customer/widgets/buttons/rounder_button.dart';
 import 'package:laundry_customer/widgets/custom_tile.dart';
 import 'package:laundry_customer/widgets/misc_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UsignedUserTab extends ConsumerWidget {
   const UsignedUserTab({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final notificationState = ref.watch(notificationStateProvider);
     return SizedBox(
       height: 812.h,
       width: 375.w,
@@ -42,7 +44,7 @@ class UsignedUserTab extends ConsumerWidget {
                 children: [
                   if (authBox.get('token') != null)
                     Container(
-                      height: 230.h,
+                      height: 200.h,
                       width: 375.w,
                       // decoration: const BoxDecoration(
                       //   image: DecorationImage(
@@ -206,213 +208,265 @@ class UsignedUserTab extends ConsumerWidget {
                       ),
                     ),
                   SizedBox(
-                    child: Column(
-                      children: [
-                        AppSpacerH(30.h),
-                        Align(
-                          alignment: Hive.box(AppHSC.appSettingsBox)
-                                      .get(AppHSC.appLocal)
-                                      .toString() ==
-                                  "ar"
-                              ? Alignment.centerLeft
-                              : Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              right: Hive.box(AppHSC.appSettingsBox)
-                                          .get(AppHSC.appLocal)
-                                          .toString() ==
-                                      "ar"
-                                  ? 0.h
-                                  : 20.h,
-                              left: Hive.box(AppHSC.appSettingsBox)
-                                          .get(AppHSC.appLocal)
-                                          .toString() ==
-                                      "ar"
-                                  ? 20.h
-                                  : 0.h,
-                            ),
-                            child: SizedBox(
-                              width: 140.w,
-                              height: 50.h,
-                              child: LocaLizationSelector(),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          AppSpacerH(30.h),
+                          Align(
+                            alignment: Hive.box(AppHSC.appSettingsBox)
+                                        .get(AppHSC.appLocal)
+                                        .toString() ==
+                                    "ar"
+                                ? Alignment.centerLeft
+                                : Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: Hive.box(AppHSC.appSettingsBox)
+                                            .get(AppHSC.appLocal)
+                                            .toString() ==
+                                        "ar"
+                                    ? 0.h
+                                    : 20.h,
+                                left: Hive.box(AppHSC.appSettingsBox)
+                                            .get(AppHSC.appLocal)
+                                            .toString() ==
+                                        "ar"
+                                    ? 20.h
+                                    : 0.h,
+                              ),
+                              child: SizedBox(
+                                width: 140.w,
+                                height: 50.h,
+                                child: LocaLizationSelector(),
+                              ),
                             ),
                           ),
-                        ),
-                        if (authBox.get('token') != null)
+                          if (authBox.get('token') != null)
+                            CustomTile(
+                              title: S.of(context).mngaddrs,
+                              icon: Icons.edit_location_outlined,
+                              ontap: () {
+                                ref.refresh(addresListProvider);
+                                context.nav
+                                    .pushNamed(Routes.manageAddressScreen);
+                              },
+                            ),
                           CustomTile(
-                            title: S.of(context).mngaddrs,
-                            icon: Icons.edit_location_outlined,
+                            title: S.of(context).privacyPolicy,
+                            icon: Icons.lock_outline,
                             ontap: () {
-                              ref.refresh(addresListProvider);
-                              context.nav.pushNamed(Routes.manageAddressScreen);
+                              context.nav.pushNamed(Routes.privacyPolicyScreen);
                             },
                           ),
-                        CustomTile(
-                          title: S.of(context).privacyPolicy,
-                          icon: Icons.lock_outline,
-                          ontap: () {
-                            context.nav.pushNamed(Routes.privacyPolicyScreen);
-                          },
-                        ),
-                        CustomTile(
-                          title: S.of(context).trmsofsrvc,
-                          icon: Icons.gavel_outlined,
-                          ontap: () {
-                            context.nav.pushNamed(Routes.termsOfServiceScreen);
-                          },
-                        ),
-                        CustomTile(
-                          title: S.of(context).cntctus,
-                          icon: Icons.person_outline,
-                          ontap: () {
-                            context.nav.pushNamed(Routes.contactUsScreen);
-                          },
-                        ),
-                        CustomTile(
-                          title: S.of(context).abtus,
-                          icon: Icons.info,
-                          hasBorder: authBox.get('token') != null,
-                          ontap: () {
-                            context.nav.pushNamed(Routes.aboutUsScreen);
-                          },
-                        ),
-                        if (authBox.get('token') != null)
                           CustomTile(
-                            title: S.of(context).lgout,
-                            icon: Icons.logout,
-                            hasBorder: !(authBox.get('token') != null),
+                            title: S.of(context).trmsofsrvc,
+                            icon: Icons.gavel_outlined,
                             ontap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(20.w),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      height: 200.h,
-                                      width: 335.w,
-                                      padding: EdgeInsets.all(20.h),
-                                      child: Consumer(
-                                        builder: (context, ref, child) {
-                                          return ref.watch(logOutProvider).map(
-                                                initial: (_) => Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      S.of(context).urabttolgot,
-                                                      style: AppTextDecor
-                                                          .osSemiBold18black,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    AppSpacerH(10.h),
-                                                    Text(
-                                                      S.of(context).arusre,
-                                                      style: AppTextDecor
-                                                          .osRegular14black,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    AppSpacerH(10.h),
-                                                    SizedBox(
-                                                      height: 50.h,
-                                                      width: 335.w,
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child:
-                                                                AppTextButton(
-                                                              title: S
-                                                                  .of(context)
-                                                                  .no,
-                                                              buttonColor:
-                                                                  AppColors
-                                                                      .gray,
-                                                              titleColor:
-                                                                  AppColors
-                                                                      .black,
-                                                              onTap: () {
-                                                                context.nav
-                                                                    .pop();
-                                                              },
-                                                            ),
-                                                          ),
-                                                          AppSpacerW(10.w),
-                                                          Expanded(
-                                                            child:
-                                                                AppTextButton(
-                                                              title: S
-                                                                  .of(context)
-                                                                  .y,
-                                                              onTap: () {
-                                                                ref
-                                                                    .watch(
-                                                                      logOutProvider
-                                                                          .notifier,
-                                                                    )
-                                                                    .logout()
-                                                                    .then(
-                                                                        (value) {
-                                                                  ref
-                                                                      .read(
-                                                                        socketProvider,
-                                                                      )
-                                                                      .socket!
-                                                                      .dispose();
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
+                              context.nav
+                                  .pushNamed(Routes.termsOfServiceScreen);
+                            },
+                          ),
+                          CustomTile(
+                            title: S.of(context).cntctus,
+                            icon: Icons.person_outline,
+                            ontap: () {
+                              context.nav.pushNamed(Routes.contactUsScreen);
+                            },
+                          ),
+                          CustomTile(
+                            title: S.of(context).abtus,
+                            icon: Icons.info,
+                            ontap: () {
+                              context.nav.pushNamed(Routes.aboutUsScreen);
+                            },
+                          ),
+                          if (authBox.get('token') != null)
+                            CustomTile(
+                              title: S.of(context).notification,
+                              icon: Icons.notifications,
+                              hasBorder: authBox.get('token') != null,
+                              ontap: () {},
+                              toggle: Switch(
+                                value: Hive.box(AppHSC.appSettingsBox).get(
+                                  'notification_switch_state',
+                                  defaultValue: true,
+                                ) as bool,
+                                onChanged: (vl) {
+                                  print(vl);
+                                  authBox.put('notification_switch_state', vl);
+                                  Hive.box(AppHSC.appSettingsBox)
+                                      .put('notification_switch_state', vl);
+                                },
+                                activeColor: Colors.white,
+                                activeTrackColor: AppColors.primary,
+                                inactiveThumbColor: Colors.white,
+                                inactiveTrackColor: Colors.grey,
+                              ),
+                            ),
+                          if (authBox.get('token') != null)
+                            CustomTile(
+                              title: S.of(context).lgout,
+                              icon: Icons.logout,
+                              hasBorder: (authBox.get('token') != null),
+                              ontap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(20.w),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        height: 200.h,
+                                        width: 335.w,
+                                        padding: EdgeInsets.all(20.h),
+                                        child: Consumer(
+                                          builder: (context, ref, child) {
+                                            return ref
+                                                .watch(logOutProvider)
+                                                .map(
+                                                  initial: (_) => Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        S
+                                                            .of(context)
+                                                            .urabttolgot,
+                                                        style: AppTextDecor
+                                                            .osSemiBold18black,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                                loading: (value) =>
-                                                    const LoadingWidget(),
-                                                error: (_) {
-                                                  Future.delayed(buildDuration)
-                                                      .then((value) {
-                                                    ref.refresh(logOutProvider);
-                                                  });
-                                                  return ErrorTextWidget(
-                                                    error: _.error,
-                                                  );
-                                                },
-                                                loaded: (value) {
-                                                  Future.delayed(buildDuration)
-                                                      .then((value) {
-                                                    context.nav.pop();
-                                                    userBox.clear();
-                                                    authBox.clear();
-                                                    ref.refresh(
-                                                      profileInfoProvider,
+                                                      AppSpacerH(10.h),
+                                                      Text(
+                                                        S.of(context).arusre,
+                                                        style: AppTextDecor
+                                                            .osRegular14black,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                      AppSpacerH(10.h),
+                                                      SizedBox(
+                                                        height: 50.h,
+                                                        width: 335.w,
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child:
+                                                                  AppTextButton(
+                                                                title: S
+                                                                    .of(context)
+                                                                    .no,
+                                                                buttonColor:
+                                                                    AppColors
+                                                                        .gray,
+                                                                titleColor:
+                                                                    AppColors
+                                                                        .black,
+                                                                onTap: () {
+                                                                  context.nav
+                                                                      .pop();
+                                                                },
+                                                              ),
+                                                            ),
+                                                            AppSpacerW(10.w),
+                                                            Expanded(
+                                                              child:
+                                                                  AppTextButton(
+                                                                title: S
+                                                                    .of(context)
+                                                                    .y,
+                                                                onTap: () {
+                                                                  ref
+                                                                      .watch(
+                                                                        logOutProvider
+                                                                            .notifier,
+                                                                      )
+                                                                      .logout()
+                                                                      .then(
+                                                                          (value) {
+                                                                    ref
+                                                                        .read(
+                                                                          socketProvider,
+                                                                        )
+                                                                        .socket!
+                                                                        .dispose();
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  loading: (value) =>
+                                                      const LoadingWidget(),
+                                                  error: (_) {
+                                                    Future.delayed(
+                                                            buildDuration)
+                                                        .then((value) {
+                                                      ref.refresh(
+                                                          logOutProvider);
+                                                    });
+                                                    return ErrorTextWidget(
+                                                      error: _.error,
                                                     );
-                                                    ref.refresh(logOutProvider);
-                                                    context.nav.pushNamed(
-                                                      Routes.loginScreen,
+                                                  },
+                                                  loaded: (value) {
+                                                    Future.delayed(
+                                                            buildDuration)
+                                                        .then((value) {
+                                                      context.nav.pop();
+                                                      userBox.clear();
+                                                      authBox.clear();
+                                                      ref.refresh(
+                                                        profileInfoProvider,
+                                                      );
+                                                      ref.refresh(
+                                                          logOutProvider);
+                                                      context.nav.pushNamed(
+                                                        Routes.loginScreen,
+                                                      );
+                                                    });
+                                                    return MessageTextWidget(
+                                                      msg: S.of(context).lgdot,
                                                     );
-                                                  });
-                                                  return MessageTextWidget(
-                                                    msg: S.of(context).lgdot,
-                                                  );
-                                                },
-                                              );
-                                        },
+                                                  },
+                                                );
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                      ],
+                                );
+                              },
+                            ),
+                          if (authBox.get('token') != null)
+                            CustomTile(
+                              title: S.of(context).deleteAccout,
+                              icon: Icons.warning,
+                              hasBorder: false,
+                              ontap: () async {
+                                final Uri url = Uri.parse(
+                                    'https://banasreelaundry.com/requist/');
+                                if (await canLaunchUrl(url)) {
+                                  await launchUrl(url);
+                                } else {
+                                  throw 'Could not launch';
+                                }
+                              },
+                            ),
+                          const SizedBox(height: 30),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               );
             },

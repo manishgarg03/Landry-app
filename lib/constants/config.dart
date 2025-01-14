@@ -1,7 +1,9 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 class AppConfig {
   AppConfig._();
 
-  static const String baseUrl = '';
+  static const String baseUrl = 'https://admin.banasreelaundry.com/api';
 
   //Stripe Keys For App - Replace With Yours
   static const String secretKey =
@@ -13,13 +15,13 @@ class AppConfig {
   static const String oneSignalAppID =
       '96fa9ec8-39bc-4395-9f3b-2c30fd9fdc3e'; // One Signal App ID
 
-  static const String appName = 'Laundry';
+  static const String appName = 'Banasree Laundry';
 
   //Contact US Config
   static const String ctAboutCompany =
-      "7th Floor, House# 19, Road# 08,Shekhertek-08, MohammedpurDhaka -1207, Bangladesh"; //Company name And Address
+      "Road-4, Block-F, Banasree, Rampura, Dhaka-1219, Bangladesh"; //Company name And Address
   static const String ctWhatsApp =
-      '+88017xxxxxxxx'; // whats app Number with Country Code
-  static const String ctPhone = '+88017xxxxxxxx'; // Contact Phone Numbers
-  static const String ctMail = 'support@razinsoft.com '; // Contact Mail
+      '+8801727515355'; // whats app Number with Country Code
+  static const String ctPhone = '+8801727515355'; // Contact Phone Numbers
+  static const String ctMail = 'info@Banasreelaundry.com '; // Contact Mail
 }

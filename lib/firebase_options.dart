@@ -58,12 +58,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD0eEw5GNR82gZLuZyEeqhvjBms_7JzB1E',
-    appId: '1:887141294942:ios:4a9c3113a718714944a5cf',
-    messagingSenderId: '887141294942',
-    projectId: 'laundry-49a80',
-    storageBucket: 'laundry-49a80.appspot.com',
-    androidClientId: '887141294942-gfi58ku2i9jfvddrbfp3i9nqsdi68uj9.apps.googleusercontent.com',
-    iosBundleId: 'com.razinsoft.laundry',
+    apiKey: 'AIzaSyB60LLXQ9zrVVON8Y7K12JFWqJuYhpWsXQ',
+    appId: '1:810708673565:ios:1b36ed175e1faefe2f92f4',
+    messagingSenderId: '810708673565',
+    projectId: 'banasree-laundry-8075f',
+    storageBucket: 'banasree-laundry-8075f.appspot.com',
+    // androidClientId:
+    //     '887141294942-gfi58ku2i9jfvddrbfp3i9nqsdi68uj9.apps.googleusercontent.com',
+    iosBundleId: 'com.app.banasreelaundry',
   );
 }
